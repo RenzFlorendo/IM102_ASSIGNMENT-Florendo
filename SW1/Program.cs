@@ -2,44 +2,47 @@
 
 class Program
 {
-    static bool IsPrime(int num)
-    {
-        if (num <= 1) return false;
-        for (int i = 2; i <= Math.Sqrt(num); i++)
-            if (num % i == 0) return false;
-        return true;
-    }
-
-    static (double peso, double yen) ConvertCurrency(double dollar)
-    {
-        double peso = dollar * 57.17;
-        double yen = dollar * 146.67;
-        return (peso, yen);
-    }
-
     static void Main()
     {
-        Console.Write("Enter string: ");
-        string[] numbers = Console.ReadLine().Split(' ');
+		int[,] grades =
+			{
+			{98,90,98},
+			{90,98,96},
+			{90,98,86}
+		};
+		int students = grades.GetLength(0);
+		int subjects = grades.GetLength(1);
 
-        int count = 1;
-        foreach (string s in numbers)
-        {
-            int num = int.Parse(s);
-            Console.WriteLine($"{count}. {num}\t{(IsPrime(num) ? "Prime" : "Composite")}");
-            count++;
-        }
+		Console.WriteLine("Studemts Grades: ");
+		for (int i = 0; i < students; i++)
+		{
+			Console.Write("Students " + (i + 1) + ":");
+			for (int j = 0; j < subjects; j++)
+			{
+				Console.Write(grades[i, j] + " ");
 
-        Console.Write("Enter currency in ($): ");
-        string[] dollarValues = Console.ReadLine().Split(',');
+				Console.WriteLine();
+			}
 
-        Console.WriteLine("\nDollar($)\tPhil Peso(P)\tJpn Yen(Y)");
-        foreach (string d in dollarValues)
-        {
-            double dollar = double.Parse(d);
-            var (peso, yen) = ConvertCurrency(dollar);
-            Console.WriteLine($"{dollar}\t\t{peso:F2}\t\t{yen:F2}");
-        }
-        Console.ReadLine();
-    }
+			Console.WriteLine("\nAverage per student: ");
+			for (int i = 0; i < students; i++)
+			{
+				int sum = 0;
+				for (int j = 0; j < subjects; j++) sum += grades[i, j];
+				Console.Write($"Students {i + 1}:  {(double)sum / students:F2}");
+			}
+
+			Console.WriteLine("\nAverage per sub: ");
+			for (int j = 0; j < subjects; j++)
+			{
+				int sum = 0;
+				for (int i = 0; i < students; i++) sum += grades[i, j];
+				Console.Write($"Students {i + 1}: {(double)sum / students:F2}");
+			}
+		}
+
+	}
 }
+}
+
+    }
